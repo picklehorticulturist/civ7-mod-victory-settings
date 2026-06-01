@@ -2,7 +2,7 @@
 
 > **Civilization VII mod** · Tested on game version 1.4.0 ("Test of Time")
 
-Give yourself full control over how and when your game ends. Disable any combination of victory conditions, freeze age progression, and play as long as you want.
+Give yourself full control over how and when your game ends. Disable any combination of victory conditions, freeze age progression, and prevent the Modern Age from ever ending.
 
 ---
 
@@ -13,7 +13,8 @@ Give yourself full control over how and when your game ends. Disable any combina
 | **Victory Toggles** | Enable or disable Military, Science, Economic, and Culture victories individually |
 | **Turn Counter Freeze** | Stop ages from advancing based on turn limits |
 | **Elimination Freeze** | Stop ages from advancing when players are eliminated |
-| **Works in Modern Age** | All blocks apply across Antiquity, Exploration, and Modern ages |
+| **Disable Age Ending** *(new in v1.4.1)* | Modern Age never ends — no game-over screen regardless of game speed or age length |
+| **Works on all speeds** | Online + Abbreviated, Standard, Epic, Marathon — all covered |
 
 ---
 
@@ -24,48 +25,76 @@ Give yourself full control over how and when your game ends. Disable any combina
    %LOCALAPPDATA%\Firaxis Games\Sid Meier's Civilization VII (Epic)\Mods\
    ```
 2. Launch Civilization VII → **Content Manager** → enable **Victory Settings**
-3. Start a new game → **Advanced Setup** → configure Victory and Age Progression options
+3. Start a new game → **Advanced Setup** → configure toggles under **Victory Options** and **Age Progression**
+
+---
+
+## Advanced Setup Toggles
+
+### Victory Options
+| Toggle | Default | Effect |
+|---|---|---|
+| Military Victory | ON | Disable to block military victory for all players |
+| Science Victory | ON | Disable to block science victory |
+| Economic Victory | ON | Disable to block economic victory |
+| Culture Victory | ON | Disable to block culture victory |
+
+### Age Progression
+| Toggle | Default | Effect |
+|---|---|---|
+| Turn Counter | ON | Disable to stop turns from filling the age progression bar |
+| Player Elimination | ON | Disable to stop eliminations from filling the age bar |
+| **Disable Age Ending** | **OFF** | **Enable to prevent the Modern Age from ever ending** |
+
+> **"Disable Age Ending"** is the key toggle for endless play. It sets the age bar's finish line to an unreachable value and blocks the score victory that fires at age end. Game speed and production pace are completely unchanged.
 
 ---
 
 ## How It Works
 
-When you disable a victory, the mod:
-- Sets `EnabledByDefault = 0` on the `Victories` row
-- Applies `REQSET_VICTORY_NEVER_MET` as the `RequirementSetId` — a requirement set that can never be satisfied (always fails)
-- Sets `CountdownDuration = 99999` and blocks the `PrereqRequirementSetId` on `VictoryTypes` to disable the 1.4.0 countdown system as well
+### Victory Blocking (double-layer)
+When you disable a victory, the mod blocks it at both DB layers introduced in v1.4.0:
 
-This double-layer approach ensures victories are blocked at both the legacy and the new countdown layers introduced in v1.4.0.
+| Layer | Table | What changes |
+|---|---|---|
+| Legacy | `Victories` | `RequirementSetId` → `REQSET_VICTORY_NEVER_MET` |
+| Countdown (v1.4.0+) | `VictoryTypes` | `PrereqRequirementSetId` → `REQSET_VICTORY_NEVER_MET`, `CountdownDuration` → 99999 |
+
+`REQSET_VICTORY_NEVER_MET` is a requirement set that can never be satisfied — it uses `REQUIREMENT_ALWAYS_MET` with `Inverse=1`, which always fails.
+
+### Age Ending Prevention
+When "Disable Age Ending" is ON:
+1. `AgeProgressions.MaxPoints_*` set to `2147483647` for all game speed + age length combos
+2. `VICTORY_SCORE` (the score/age-end victory that fires instantly when the age ends) is blocked via `REQSET_VICTORY_NEVER_MET`
 
 ---
 
-## Troubleshooting & Diagnostics
+## Troubleshooting
 
-The mod ships with Python developer tools in the `tools/` folder. **These are for developers only — end users do not need them.**
+The mod ships with Python developer tools in `tools/`. **End users don't need these.**
 
 ```bash
-# Instantly check if the mod applied correctly to the live running game
+# Check if mod is applied correctly (run while game is running)
 python tools/check_now.py
 
-# Watch logs in real time during gameplay
+# Watch logs in real time
 python tools/watch_logs.py
-
-# Full session health report
-python tools/analyze_session.py
 ```
 
-See [`tools/README.md`](./tools/README.md) for full documentation.
-
----
-
-## For Modders
-
-See [`MODDERS_GUIDE.md`](./MODDERS_GUIDE.md) for architecture details, how to enable in-game debug logging, and how to extend the mod.
+See [`tools/README.md`](./tools/README.md) and [`docs/game-knowledge/debugging-workflow.md`](./docs/game-knowledge/debugging-workflow.md) for full documentation.
 
 ---
 
 ## Known Limitations
 
-- The **AI will still internally plan** toward disabled victories (strategies are registered but unachievable). This has no gameplay effect — the AI simply cannot complete them.
-- The **"One More Turn" button** in multiplayer is a base game bug unrelated to this mod.
-- Requires a **new game** — changes do not apply to saves started without the mod.
+- The **AI will still pursue** disabled victories internally (strategies remain registered but unachievable). No gameplay impact.
+- Requires a **new game** — settings do not apply to saves started without the mod.
+- **"One More Turn"** after score victory in multiplayer is a base game bug — avoided entirely by enabling "Disable Age Ending".
+
+---
+
+## For Modders
+
+See [`MODDERS_GUIDE.md`](./MODDERS_GUIDE.md) for architecture details, debug flag instructions, and how to extend the mod.
+
+See [`docs/game-knowledge/`](./docs/game-knowledge/) for deep-dive documentation on the game's internal DB schema, XML rules, age progression system, and debugging workflows — useful when upgrading to new game versions.
