@@ -166,6 +166,15 @@
 			</Actions>
 		</ActionGroup>
 
+		<!-- Diagnostic logger — isolated so SOURCE ERRORs in other scripts cannot block it -->
+		<ActionGroup id="victory-settings-diagnostics" scope="game" criteria="always">
+			<Actions>
+				<UIScripts>
+					<Item>ui/core/victory-settings-logger.js</Item>
+				</UIScripts>
+			</Actions>
+		</ActionGroup>
+
 		<!-- Progression -->
 		<ActionGroup id="age-progression-turn-counter-disable" scope="game" criteria="age-progression-turn-counter-disabled">
 			<Actions>
@@ -243,6 +252,22 @@
 		</ActionGroup>
 
 		<!-- Modern Age -->
+
+		<!-- BUGFIX: Load the shared "never-met" requirement set exactly ONCE via an always-active
+		     ActionGroup. Previously, victory-requirements-block.xml was listed inside each of the
+		     four individual disable groups. When 2+ victories were disabled simultaneously, the
+		     second (and subsequent) loads attempted to INSERT the same REQ_VICTORY_NEVER_MET row,
+		     triggering a UNIQUE constraint violation. The database rolled back the entire transaction
+		     for that load — silently preventing those victories from being blocked (e.g. AI could
+		     still win by Culture even when CultureVictoryEnabled=0). -->
+		<ActionGroup id="modern-age-victory-requirements-block" scope="game" criteria="always">
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/age-modern/victory-requirements-block.xml</Item>
+				</UpdateDatabase>
+			</Actions>
+		</ActionGroup>
+
 		<ActionGroup id="modern-age-current-victory-military-disable" scope="game" criteria="modern-age-current-victory-military-disabled">
 			<Actions>
 				<UpdateDatabase>
