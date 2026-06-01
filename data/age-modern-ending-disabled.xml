@@ -20,7 +20,13 @@
         <Update>
             <Where AgeType="AGE_MODERN"/>
             <Set MaxPoints_Abbreviated="2147483647"/>
+        </Update>
+        <Update>
+            <Where AgeType="AGE_MODERN"/>
             <Set MaxPoints_Standard="2147483647"/>
+        </Update>
+        <Update>
+            <Where AgeType="AGE_MODERN"/>
             <Set MaxPoints_Long="2147483647"/>
         </Update>
     </AgeProgressions>
