@@ -8,5 +8,6 @@
 
 		<Row ParameterID="AgeProgressionFromTurnCounterEnabled" Name="LOC_ADVANCED_OPTIONS_PROGRESSION_TURN_COUNTER" Description="LOC_ADVANCED_OPTIONS_PROGRESSION_TURN_COUNTER_DESC" Domain="bool" Hash="0" DefaultValue="1" ConfigurationGroup="Game" ConfigurationKey="AgeProgressionFromTurnCounterEnabled" GroupId="AdvancedOptions" ChangeableAfterGameStart="0" SortIndex="2054"/>
 		<Row ParameterID="AgeProgressionFromPlayerEliminatedEnabled" Name="LOC_ADVANCED_OPTIONS_PROGRESSION_PLAYER_ELIMINATED" Description="LOC_ADVANCED_OPTIONS_PROGRESSION_PLAYER_ELIMINATED_DESC" Domain="bool" Hash="0" DefaultValue="1" ConfigurationGroup="Game" ConfigurationKey="AgeProgressionFromPlayerEliminatedEnabled" GroupId="AdvancedOptions" ChangeableAfterGameStart="0" SortIndex="2055"/>
+		<Row ParameterID="AgeEndingDisabled" Name="LOC_ADVANCED_OPTIONS_AGE_ENDING_DISABLED" Description="LOC_ADVANCED_OPTIONS_AGE_ENDING_DISABLED_DESC" Domain="bool" Hash="0" DefaultValue="0" ConfigurationGroup="Game" ConfigurationKey="AgeEndingDisabled" GroupId="AdvancedOptions" ChangeableAfterGameStart="0" SortIndex="2056"/>
 	</Parameters>
 </Database>

@@ -43,6 +43,12 @@
 		<Replace Tag="LOC_ADVANCED_OPTIONS_PROGRESSION_PLAYER_ELIMINATED_DESC" Language="en_US">
 			<Text>Should progression be increased by the elimination of players?</Text>
 		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_AGE_ENDING_DISABLED" Language="en_US">
+			<Text>Disable Age Ending</Text>
+		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_AGE_ENDING_DISABLED_DESC" Language="en_US">
+			<Text>When enabled, the Modern Age will never end. Game speed and production pace are unchanged — only the age bar finish line is removed. Disables the score victory.</Text>
+		</Replace>
 
 		<!-- King of Ashes Defeat -->
 		<Replace Tag="LOC_DEFEAT_KING_OF_ASHES_NAME" Language="en_US">

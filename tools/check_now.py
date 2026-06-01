@@ -102,6 +102,34 @@ else:
         tag = f"{C.GRN}frozen{C.R}" if frozen else f"{C.YLW}ACTIVE{C.R}"
         p(f"  [{tag}]  {r['AgeProgressionTurnType']}  Points={r['Points']}")
 
+header("Age Bar MaxPoints (Modern Age — AgeEndingDisabled)")
+rows = q("SELECT MaxPoints_Abbreviated, MaxPoints_Standard, MaxPoints_Long FROM AgeProgressions WHERE AgeType='AGE_MODERN'")
+if isinstance(rows, str):
+    p(f"  {C.RED}{rows}{C.R}")
+elif not rows:
+    p(f"  {C.YLW}(no Modern Age row){C.R}")
+else:
+    r = rows[0]
+    MAX = 2147483647
+    for col, val in r.items():
+        disabled = val == MAX
+        tag = f"{C.GRN}DISABLED (never fills){C.R}" if disabled else f"{C.RED}ACTIVE = {val}{C.R}"
+        p(f"  [{tag}]  {col}")
+
+header("VICTORY_SCORE (score/age-end victory)")
+rows_v = q("SELECT VictoryType, RequirementSetId FROM Victories WHERE VictoryType='VICTORY_SCORE'")
+rows_vt = q("SELECT VictoryType, PrereqRequirementSetId, CountdownDuration FROM VictoryTypes WHERE VictoryType='VICTORY_SCORE'")
+if isinstance(rows_v, list) and rows_v:
+    r = rows_v[0]
+    blocked = r["RequirementSetId"] == "REQSET_VICTORY_NEVER_MET"
+    tag = f"{C.GRN}BLOCKED{C.R}" if blocked else f"{C.RED}NOT BLOCKED{C.R}"
+    p(f"  [{tag}]  Victories.RequirementSetId = {r['RequirementSetId']}")
+if isinstance(rows_vt, list) and rows_vt:
+    r = rows_vt[0]
+    blocked = r["PrereqRequirementSetId"] == "REQSET_VICTORY_NEVER_MET"
+    tag = f"{C.GRN}BLOCKED{C.R}" if blocked else f"{C.RED}NOT BLOCKED{C.R}"
+    p(f"  [{tag}]  VictoryTypes.PrereqRequirementSetId = {r['PrereqRequirementSetId']}  CountdownDuration={r['CountdownDuration']}")
+
 # ── AI Strategies ──────────────────────────────────────────────────────────────
 header("Strategies (Modern Countdown AI)")
 rows = q("SELECT StrategyType, CountdownVictoryType, MinNumConditionsNeeded, MaxNumConditionsNeeded FROM Strategies WHERE CountdownVictoryType LIKE '%MODERN%' GROUP BY CountdownVictoryType ORDER BY CountdownVictoryType")

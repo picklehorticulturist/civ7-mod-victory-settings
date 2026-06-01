@@ -137,6 +137,15 @@
 					<Value>0</Value>
 			</ConfigurationValueMatches>
 		</Criteria>
+
+		<!-- Disable Modern Age Ending (MaxPoints + VICTORY_SCORE) -->
+		<Criteria id="age-ending-disabled">
+			<ConfigurationValueMatches>
+					<Group>Game</Group>
+					<ConfigurationId>AgeEndingDisabled</ConfigurationId>
+					<Value>1</Value>
+			</ConfigurationValueMatches>
+		</Criteria>
 	</ActionCriteria>
 	<ActionGroups>
 		<!-- Shell -->
@@ -187,6 +196,15 @@
 			<Actions>
 				<UpdateDatabase>
 					<Item>data/age-progression-player-eliminated-disabled.xml</Item>
+				</UpdateDatabase>
+			</Actions>
+		</ActionGroup>
+
+		<!-- Prevent Modern Age from ever ending (all speed/age-length combos) + block VICTORY_SCORE -->
+		<ActionGroup id="age-modern-ending-disable" scope="game" criteria="age-ending-disabled">
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/age-modern-ending-disabled.xml</Item>
 				</UpdateDatabase>
 			</Actions>
 		</ActionGroup>
