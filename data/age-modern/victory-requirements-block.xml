@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <!--
+    Defines an "always-false" requirement set used to block victory conditions.
+    Uses REQUIREMENT_ALWAYS_MET with Inverse=1 to create a condition that can
+    never be satisfied, preventing the game engine from triggering any victory
+    that references this requirement set.
+  -->
+
+  <!-- A requirement that is always met, but inverted to always be FALSE -->
+  <Requirements>
+    <Row RequirementId="REQ_VICTORY_NEVER_MET"
+         RequirementType="REQUIREMENT_ALWAYS_MET"
+         Inverse="1"/>
+  </Requirements>
+
+  <!-- A requirement set containing the always-false requirement -->
+  <RequirementSets>
+    <Row RequirementSetId="REQSET_VICTORY_NEVER_MET"
+         RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+  </RequirementSets>
+
+  <!-- Link the requirement to the set -->
+  <RequirementSetRequirements>
+    <Row RequirementSetId="REQSET_VICTORY_NEVER_MET"
+         RequirementId="REQ_VICTORY_NEVER_MET"/>
+  </RequirementSetRequirements>
+</Database>

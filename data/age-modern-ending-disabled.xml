@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <!--
+        age-modern-ending-disabled.xml
+        Prevents the Modern Age from ever ending due to age progression bar or score victory.
+
+        Game speed and production pace are completely unchanged — only the bar's
+        finish line is moved to an impossible value (2147483647 = SQLite max int).
+
+        Covers ALL game speed + age length combinations:
+            MaxPoints_Abbreviated = used by Online + Quick speeds with "Abbreviated" age length
+            MaxPoints_Standard    = used by Standard speed
+            MaxPoints_Long        = used by Epic AND Marathon speeds
+
+        Scoped to AGE_MODERN only. Antiquity and Exploration ages are unaffected
+        (they use separate AgeProgressionType rows: AGE_PROGRESSION_ANTIQUITY_AGE_TIMER
+        and AGE_PROGRESSION_EXPLORATION_AGE_TIMER).
+    -->
+    <AgeProgressions>
+        <Update>
+            <Where AgeType="AGE_MODERN"/>
+            <Set MaxPoints_Abbreviated="2147483647"/>
+        </Update>
+        <Update>
+            <Where AgeType="AGE_MODERN"/>
+            <Set MaxPoints_Standard="2147483647"/>
+        </Update>
+        <Update>
+            <Where AgeType="AGE_MODERN"/>
+            <Set MaxPoints_Long="2147483647"/>
+        </Update>
+    </AgeProgressions>
+
+    <!--
+        Block VICTORY_SCORE — the score/turn-limit victory that fires the instant
+        the Modern Age ends (CountdownDuration=0, ScoringType=COUNTDOWN_VICTORY_SCORING_TYPE_END_AGE).
+        If the age bar can never fill, this victory can never trigger — but we block
+        it at both DB layers as a safety net.
+        Re-uses REQSET_VICTORY_NEVER_MET from victory-requirements-block.xml (loaded first
+        via the always-active modern-age-victory-requirements-block ActionGroup).
+    -->
+    <Victories>
+        <Update>
+            <Where VictoryType="VICTORY_SCORE"/>
+            <Set RequirementSetId="REQSET_VICTORY_NEVER_MET"/>
+        </Update>
+    </Victories>
+    <VictoryTypes>
+        <Update>
+            <Where VictoryType="VICTORY_SCORE"/>
+            <Set PrereqRequirementSetId="REQSET_VICTORY_NEVER_MET"/>
+        </Update>
+    </VictoryTypes>
+</Database>

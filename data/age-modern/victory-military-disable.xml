@@ -2,10 +2,26 @@
 <Database>
   <Victories>
     <Update>
-      <Where VictoryType="VICTORY_MODERN_MILITARY"/>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
       <Set EnabledByDefault='0'/>
     </Update>
+    <Update>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
   </Victories>
+
+  <!-- Block the new 1.4.0 countdown-based victory system -->
+  <VictoryTypes>
+    <Update>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set PrereqRequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+    <Update>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set CountdownDuration='99999'/>
+    </Update>
+  </VictoryTypes>
 
   <Strategies>
     <Update>
