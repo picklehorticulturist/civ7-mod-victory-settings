@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
-  <Strategies>
-    <Update>
-      <Where LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY"/>
-      <Set MinNumConditionsNeeded='100'/>
-    </Update>
+  <!--
+    Exploration-age Military victory block. See victory-culture-disable.xml in
+    this folder for the full explanation: 1.4.0 lets the VICTORY_MILITARY_MODERN
+    countdown victory (CountdownDuration=5, DOMINATION scoring) fire from ~50%
+    through the Exploration age. Loads under
+    `exploration-age-current-victory-military-disabled`
+    (AgeInUse=AGE_EXPLORATION + MilitaryVictoryEnabled=0).
 
+    Also blocks VICTORY_DOMINATION — a legacy-layer (Victories-only) military/
+    domination victory the mod previously ignored entirely.
+  -->
+  <Victories>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY"/>
-      <Set MaxNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set EnabledByDefault='0'/>
     </Update>
+    <Update>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+    <Update>
+      <Where VictoryType="VICTORY_DOMINATION"/>
+      <Set EnabledByDefault='0'/>
+    </Update>
+    <Update>
+      <Where VictoryType="VICTORY_DOMINATION"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+  </Victories>
 
+  <VictoryTypes>
     <Update>
-      <Where LegacyPathType='LEGACY_PATH_EXPLORATION_MILITARY'/>
-      <Set MinConditionPercentage='100'/>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set PrereqRequirementSetId='REQSET_VICTORY_NEVER_MET'/>
     </Update>
-  </Strategies>
+    <Update>
+      <Where VictoryType="VICTORY_MILITARY_MODERN"/>
+      <Set CountdownDuration='99999'/>
+    </Update>
+  </VictoryTypes>
 </Database>

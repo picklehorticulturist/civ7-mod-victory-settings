@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
-  <Strategies>
+  <!--
+    Exploration-age Science victory block. See victory-culture-disable.xml in
+    this folder for the full explanation: 1.4.0 lets the VICTORY_SCIENCE_MODERN
+    countdown victory (CountdownDuration=5, MinimumPoints=100) fire from ~50%
+    through the Exploration age. Loads under
+    `exploration-age-current-victory-science-disabled`
+    (AgeInUse=AGE_EXPLORATION + ScienceVictoryEnabled=0).
+  -->
+  <Victories>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE"/>
-      <Set MinNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_SCIENCE_MODERN"/>
+      <Set EnabledByDefault='0'/>
     </Update>
+    <Update>
+      <Where VictoryType="VICTORY_SCIENCE_MODERN"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+  </Victories>
 
+  <VictoryTypes>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE"/>
-      <Set MaxNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_SCIENCE_MODERN"/>
+      <Set PrereqRequirementSetId='REQSET_VICTORY_NEVER_MET'/>
     </Update>
-
     <Update>
-      <Where LegacyPathType='LEGACY_PATH_EXPLORATION_SCIENCE'/>
-      <Set MinConditionPercentage='100'/>
+      <Where VictoryType="VICTORY_SCIENCE_MODERN"/>
+      <Set CountdownDuration='99999'/>
     </Update>
-  </Strategies>
+  </VictoryTypes>
 </Database>

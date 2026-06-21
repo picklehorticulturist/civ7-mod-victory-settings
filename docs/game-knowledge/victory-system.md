@@ -117,12 +117,35 @@ Logic: `REQUIREMENT_ALWAYS_MET` + `Inverse=1` = always fails. `REQUIREMENTSET_TE
 
 ---
 
-## Modern Age Victory Types
+## Victory Types
 
-| VictoryType | VictoryClass | Legacy Path | Default Countdown |
+> ⚠️ Despite the `_MODERN` suffix, these are the game's only countdown victories and they
+> are present (and triggerable) in the **Exploration**-age DB too — see *Per-Age Availability* below.
+
+| VictoryType | VictoryClass | Default Countdown (mod → 99999) | Notes |
 |---|---|---|---|
-| `VICTORY_MILITARY_MODERN` | `VICTORY_CLASS_MILITARY` | `LEGACY_PATH_MODERN_MILITARY` | 99999 (when enabled) |
-| `VICTORY_SCIENCE_MODERN` | `VICTORY_CLASS_SCIENCE` | `LEGACY_PATH_MODERN_SCIENCE` | 99999 |
-| `VICTORY_ECONOMIC_MODERN` | `VICTORY_CLASS_ECONOMIC` | `LEGACY_PATH_MODERN_ECONOMIC` | 99999 |
-| `VICTORY_CULTURE_MODERN` | `VICTORY_CLASS_CULTURE` | `LEGACY_PATH_MODERN_CULTURE` | 99999 |
-| `VICTORY_SCORE` | `VICTORY_CLASS_SCORE` | (none) | **0** (instant) |
+| `VICTORY_MILITARY_MODERN` | `VICTORY_CLASS_MILITARY` | `5` | `ScoringType = …DOMINATION` |
+| `VICTORY_SCIENCE_MODERN` | `VICTORY_CLASS_SCIENCE` | `5` | `ScoringType = …FIXED_SCORE`, `MinimumPoints=100` |
+| `VICTORY_ECONOMIC_MODERN` | `VICTORY_CLASS_ECONOMIC` | `5` | `ScoringType = …DOMINATION` |
+| `VICTORY_CULTURE_MODERN` | `VICTORY_CLASS_CULTURE` | `5` | `ScoringType = …DOMINATION` |
+| `VICTORY_SCORE` | `VICTORY_CLASS_SCORE` | **0** (instant) | Fires when the Modern Age ends |
+| `VICTORY_DOMINATION` | `VICTORY_CLASS_DOMINATION` | — (not in `VictoryTypes`) | Legacy-layer only (`Victories` row, `REQSET_DOMINATION_VICTORY`) |
+
+> The default countdown is **5** turns ("victory imminent" → 5 turns → win). The mod raises it
+> to `99999` and points the prereq at `REQSET_VICTORY_NEVER_MET`.
+
+### Per-Age Availability (v1.4.0+)
+
+The gameplay DB is rebuilt **per age**. The `VICTORY_*_MODERN` rows appear in the Exploration-age
+DB (verified 2026-06-21), and patch 1.4.0 makes them achievable from **~50% through the Exploration
+age** once a player's score clears the threshold vs. 2nd place. Their actual requirement sets:
+
+| VictoryType | `Victories.RequirementSetId` | `VictoryTypes.PrereqRequirementSetId` |
+|---|---|---|
+| `VICTORY_CULTURE_MODERN` | `REQSET_VICTORY_MODERN_CULTURE_COUNTDOWN` | `REQSET_MODERN_VICTORY_CULTURE_PREREQ` |
+| `VICTORY_ECONOMIC_MODERN` | `REQSET_VICTORY_MODERN_ECONOMIC_COUNTDOWN` | `REQSET_MODERN_VICTORY_ECONOMIC_PREREQ` |
+| `VICTORY_MILITARY_MODERN` | `REQSET_VICTORY_MODERN_MILITARY_COUNTDOWN` | `REQSET_MODERN_VICTORY_MILITARY_PREREQ` |
+| `VICTORY_SCIENCE_MODERN` | `REQSET_VICTORY_MODERN_SCIENCE_COUNTDOWN` | `REQSET_MODERN_VICTORY_SCIENCE_PREREQ` |
+
+Because of this, the v1.5.0 blocks load for the Antiquity, Exploration, **and** Modern age
+contexts (each gated by the same per-victory toggle), not just Modern.

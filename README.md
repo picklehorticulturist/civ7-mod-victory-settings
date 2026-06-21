@@ -1,4 +1,4 @@
-# Victory Settings — Mod v1.4.1
+# Victory Settings — Mod v1.5.0
 
 > **Civilization VII mod** · Tested on game version 1.4.0 ("Test of Time")
 
@@ -11,6 +11,7 @@ Give yourself full control over how and when your game ends. Disable any combina
 | Feature | Description |
 |---|---|
 | **Victory Toggles** | Enable or disable Military, Science, Economic, and Culture victories individually |
+| **All-age victory blocking** *(new in v1.5.0)* | Disabled victories are now blocked in **every** age — including the Exploration-age victory countdown the game added in patch 1.4.0, so a runaway player can't win before the Modern Age |
 | **Turn Counter Freeze** | Stop ages from advancing based on turn limits |
 | **Elimination Freeze** | Stop ages from advancing when players are eliminated |
 | **Disable Age Ending** *(new in v1.4.1)* | Modern Age never ends — no game-over screen regardless of game speed or age length |
@@ -32,12 +33,15 @@ Give yourself full control over how and when your game ends. Disable any combina
 ## Advanced Setup Toggles
 
 ### Victory Options
+
+> **⚠️ Read the boxes carefully.** Each box shows whether that victory is **enabled**, and the game ships with all victories enabled — so the four boxes start **checked**. **To disable a victory, UNCHECK its box.** A checked box means that victory is still active. (This is the opposite of *Disable Age Ending* below, which you *check* to turn on.)
+
 | Toggle | Default | Effect |
 |---|---|---|
-| Military Victory | ON | Disable to block military victory for all players |
-| Science Victory | ON | Disable to block science victory |
-| Economic Victory | ON | Disable to block economic victory |
-| Culture Victory | ON | Disable to block culture victory |
+| Military Victory | ON (checked) | **Uncheck** to block military victory for all players |
+| Science Victory | ON (checked) | **Uncheck** to block science victory |
+| Economic Victory | ON (checked) | **Uncheck** to block economic victory |
+| Culture Victory | ON (checked) | **Uncheck** to block culture victory |
 
 ### Age Progression
 | Toggle | Default | Effect |
@@ -61,6 +65,8 @@ When you disable a victory, the mod blocks it at both DB layers introduced in v1
 | Countdown (v1.4.0+) | `VictoryTypes` | `PrereqRequirementSetId` → `REQSET_VICTORY_NEVER_MET`, `CountdownDuration` → 99999 |
 
 `REQSET_VICTORY_NEVER_MET` is a requirement set that can never be satisfied — it uses `REQUIREMENT_ALWAYS_MET` with `Inverse=1`, which always fails.
+
+**Applied in every age (v1.5.0):** Civ7's gameplay database is rebuilt per age, and patch 1.4.0 made the countdown victories triggerable from ~50% through the **Exploration** age — not just the Modern Age. The block is therefore loaded for the Antiquity, Exploration, *and* Modern age contexts (each gated by the same per-victory toggle), so a disabled victory stays unwinnable no matter which age you're in.
 
 ### Age Ending Prevention
 When "Disable Age Ending" is ON:

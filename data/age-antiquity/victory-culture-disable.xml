@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
-  <Strategies>
+  <!--
+    Antiquity-age Culture victory block. Victories are normally unavailable in
+    Antiquity, but this mirrors the Exploration/Modern blocks for safety and
+    future-proofing (so a runaway player can never be awarded VICTORY_CULTURE_MODERN
+    no matter how early the engine unlocks it). Harmless no-op if the row is absent
+    from the Antiquity-age gameplay DB. Loads under
+    `antiquity-age-current-victory-culture-disabled`
+    (AgeInUse=AGE_ANTIQUITY + CultureVictoryEnabled=0). Reuses REQSET_VICTORY_NEVER_MET.
+  -->
+  <Victories>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_ANTIQUITY_CULTURE"/>
-      <Set MinNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_CULTURE_MODERN"/>
+      <Set EnabledByDefault='0'/>
     </Update>
+    <Update>
+      <Where VictoryType="VICTORY_CULTURE_MODERN"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+  </Victories>
 
+  <VictoryTypes>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_ANTIQUITY_CULTURE"/>
-      <Set MaxNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_CULTURE_MODERN"/>
+      <Set PrereqRequirementSetId='REQSET_VICTORY_NEVER_MET'/>
     </Update>
-
     <Update>
-      <Where LegacyPathType='LEGACY_PATH_ANTIQUITY_CULTURE'/>
-      <Set MinConditionPercentage='100'/>
+      <Where VictoryType="VICTORY_CULTURE_MODERN"/>
+      <Set CountdownDuration='99999'/>
     </Update>
-  </Strategies></Database>
+  </VictoryTypes>
+</Database>
