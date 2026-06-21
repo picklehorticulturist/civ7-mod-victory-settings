@@ -1,6 +1,6 @@
 # Game Knowledge DB — Index
 
-Internal reference documentation for the Victory Settings mod. Captures everything learned about the Civ7 engine during development of v1.4.0 and v1.4.1.
+Internal reference documentation for the Victory Settings mod. Captures everything learned about the Civ7 engine during development of v1.4.0, v1.4.1, and v1.5.0.
 
 > **Purpose**: Reduce time-to-diagnosis when the game updates and breaks things. Read these before diving into Database.log.
 
@@ -21,7 +21,10 @@ Internal reference documentation for the Victory Settings mod. Captures everythi
 ## Quick Reference — Key Facts
 
 ### Age Progression
-- **Only Modern Age has a timer row** in `AgeProgressionTurns` (v1.4.0 DB)
+- **The gameplay DB is rebuilt per age.** Each age's DB contains only *that* age's
+  `AgeProgressions` / `AgeProgressionTurns` row (e.g. the Exploration-age DB has
+  `AGE_PROGRESSION_EXPLORATION_AGE_TIMER`, `EndsAge=1`, `MaxPoints 120/140/160` — and
+  **no** Modern row). An `<AgeInUse>` mod change must match the age whose DB is loaded.
 - **No `MaxPoints_Marathon` column** — Marathon uses `MaxPoints_Long` (same as Epic)
 - `GameSpeedScaling=0` on `AgeProgressionTurns` means per-turn points are NOT scaled by game speed
 - Default: `1pt/turn` + `5/10pts per milestone` × number of players = bar fills in ~60 turns (Online + Abbreviated)
@@ -30,6 +33,7 @@ Internal reference documentation for the Victory Settings mod. Captures everythi
 ### Victory System
 - v1.4.0 added a second layer: `VictoryTypes` table with `CountdownDuration` + `PrereqRequirementSetId`
 - Both layers must be blocked — `Victories.RequirementSetId` AND `VictoryTypes.PrereqRequirementSetId`
+- **The `VICTORY_*_MODERN` countdown victories are present and active in the *Exploration*-age DB.** Patch 1.4.0 lets them fire from ~50% Exploration progress (default `CountdownDuration=5`), so victory blocks must load for the Exploration (and Antiquity) age contexts, not just Modern — see v1.5.0.
 - `VICTORY_SCORE` fires instantly (`CountdownDuration=0`) when Modern Age ends — must be blocked separately
 - `REQSET_SCORE_PREREQ` is `REQUIREMENT_ALWAYS_MET` (not inverted) — score victory always active
 
@@ -54,3 +58,4 @@ Enable live DB: `CopyDatabasesToDisk 1` in `AppOptions.txt`
 |---|---|---|
 | v1.4.0 | 2025 | Age progression point system, localization injection, UNIQUE constraint bug |
 | v1.4.1 | 2026-06-01 | VICTORY_SCORE mechanism, MaxPoints columns, XML duplicate Set rule, 60-turn root cause, Marathon = MaxPoints_Long |
+| v1.5.0 | 2026-06-21 | Per-age gameplay DB rebuild; VICTORY_*_MODERN countdown victories active from ~50% Exploration (default CountdownDuration=5); `Strategies` has no `LegacyPathType` column (it's `CountdownVictoryType`); VICTORY_DOMINATION exists in `Victories` only |

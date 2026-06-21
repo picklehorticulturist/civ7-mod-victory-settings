@@ -167,11 +167,17 @@ Actual: milestones fire early (turn 10-20 for fast AI)
 
 ---
 
-## Scope: Only Modern Age Has a Timer
+## Scope: Each Age Has Its Own Timer — in Its Own Per-Age DB
 
-In the v1.4.0 gameplay DB:
-- `AgeProgressionTurns` has **1 row** → `AGE_PROGRESSION_MODERN_AGE_TIMER` (Modern Age only)
-- Antiquity uses `AGE_PROGRESSION_ANTIQUITY_AGE_TIMER` with its own `AgeProgressions` row
-- Exploration uses `AGE_PROGRESSION_EXPLORATION_AGE_TIMER` with its own row
+The gameplay DB is **rebuilt per age**, and each age's DB carries only *its own* timer:
+- Antiquity DB → `AGE_PROGRESSION_ANTIQUITY_AGE_TIMER`
+- Exploration DB → `AGE_PROGRESSION_EXPLORATION_AGE_TIMER` (verified 2026-06-21: `EndsAge=1`,
+  `MaxPoints_Abbreviated/Standard/Long = 120/140/160`)
+- Modern DB → `AGE_PROGRESSION_MODERN_AGE_TIMER`
 
-All three are independent. Modifying Modern Age values does **not** affect Antiquity or Exploration.
+> ⚠️ Earlier notes said "only the Modern Age has a timer row." That was an artifact of only
+> ever dumping the Modern-age DB. In the Exploration-age DB, the **only** `AgeProgressions`
+> row is the Exploration one — there is no Modern row to update. A DB change therefore only
+> applies to the age whose DB is currently loaded, which is why `<AgeInUse>` criteria on the
+> ActionGroup matters. This is also why the v1.5.0 victory blocks had to be loaded for the
+> Exploration (and Antiquity) age contexts, not just Modern.

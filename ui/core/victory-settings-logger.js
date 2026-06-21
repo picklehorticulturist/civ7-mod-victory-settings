@@ -27,7 +27,7 @@
 const MOD_DEBUG = false;
 
 const MOD_TAG     = '[VictorySettings]';
-const MOD_VERSION = '1.4.1';
+const MOD_VERSION = '1.5.0';
 
 // ─── Logging helpers ──────────────────────────────────────────────────────────
 

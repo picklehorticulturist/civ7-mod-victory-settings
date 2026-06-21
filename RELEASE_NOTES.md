@@ -1,5 +1,46 @@
 # Release Notes
 
+## v1.5.0 — All-Age Victory Blocking
+
+### ✨ Enhancement: disabled victories are now blocked in *every* age
+
+Victory blocking now covers the Antiquity, Exploration, **and** Modern age contexts —
+previously it only took effect once you reached the Modern Age. This closes a gap opened
+by game patch 1.4.0, which made the countdown victories triggerable as early as the
+Exploration age, letting a runaway player win before Modern.
+
+**Background — what changed in the game:**
+- Civ7 **1.4.0** made the countdown victories achievable starting **~50% through the
+  Exploration age** (previously Modern-only). When a player's score exceeds the threshold
+  vs. 2nd place, a **5-turn "victory imminent" countdown** starts, then the game ends.
+- The gameplay database is **rebuilt per age**. The same `VICTORY_*_MODERN` rows (with
+  `CountdownDuration=5`) are present in the Exploration-age database, so a disabled victory
+  could still be won there.
+
+**What this release does:**
+- All four `data/age-exploration/victory-*-disable.xml` and four
+  `data/age-antiquity/victory-*-disable.xml` files now perform the full victory block
+  (`Victories.RequirementSetId` + `VictoryTypes.PrereqRequirementSetId` →
+  `REQSET_VICTORY_NEVER_MET`, `CountdownDuration` → `99999`), mirroring the Modern-age
+  files. They load under the existing per-age + per-toggle ActionGroups — no modinfo
+  change required.
+- Removed stale `Strategies` updates from those files (they referenced a `LegacyPathType`
+  column that doesn't exist — the real column is `CountdownVictoryType` — so they were
+  no-ops; AI tuning only, no gameplay impact).
+- Added blocking for **`VICTORY_DOMINATION`** (a legacy-layer military/domination victory
+  previously not covered) to the Military blocks in all three ages.
+
+**Net effect:** a disabled victory now stays unwinnable in every age the toggle is set
+for — no more early Exploration-age wins.
+
+### 🛠 Developer Additions
+- `tools/dump_all_victories.py` — dumps the **complete** Victories / VictoryTypes /
+  AgeProgressions tables for **all ages** (the older tools filtered to `%MODERN%`, which
+  is why this bug was invisible to them).
+- `tools/DUMP_INSTRUCTIONS.md` — step-by-step guide for capturing the live database.
+
+---
+
 ## v1.4.1 — Age Ending Fix, Logging System & Developer Tools
 
 ### 🎮 New Feature: "Disable Age Ending" Toggle

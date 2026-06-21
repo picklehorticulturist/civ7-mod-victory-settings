@@ -115,7 +115,7 @@ python tools/dump_db.py --db-path "C:\path\to\gameplay-copy.sqlite"
 
 By default, the in-game logger (`ui/core/victory-settings-logger.js`) writes only one line to `UI.log`:
 ```
-[VictorySettings] v1.4.1 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
+[VictorySettings] v1.5.0 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
 ```
 
 To enable the full diagnostic dump, edit the logger and set:

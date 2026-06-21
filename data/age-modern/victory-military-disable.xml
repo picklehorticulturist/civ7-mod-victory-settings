@@ -9,6 +9,14 @@
       <Where VictoryType="VICTORY_MILITARY_MODERN"/>
       <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
     </Update>
+    <Update>
+      <Where VictoryType="VICTORY_DOMINATION"/>
+      <Set EnabledByDefault='0'/>
+    </Update>
+    <Update>
+      <Where VictoryType="VICTORY_DOMINATION"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
   </Victories>
 
   <!-- Block the new 1.4.0 countdown-based victory system -->

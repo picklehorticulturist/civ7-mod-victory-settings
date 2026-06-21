@@ -139,7 +139,7 @@ To enable:
 
 One load-confirmation line always prints regardless of `MOD_DEBUG`:
 ```
-[VictorySettings] v1.4.1 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
+[VictorySettings] v1.5.0 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
 ```
 
 ---
@@ -151,7 +151,8 @@ One load-confirmation line always prints regardless of `MOD_DEBUG`:
 | **Live DB check** | `python tools/check_now.py` | Primary. Checks all mod values in live `gameplay-copy.sqlite` |
 | **Log watcher** | `python tools/watch_logs.py --save-session` | Real-time `UI.log` / `Database.log` tail |
 | **Session report** | `python tools/analyze_session.py` | Post-session pass/fail report |
-| **DB dump** | `python tools/dump_db.py --json --out dump.json` | Full SQLite table dump |
+| **DB dump** | `python tools/dump_db.py --json --out dump.json` | Mod-relevant tables (Modern-filtered) |
+| **All-age victory dump** | `python tools/dump_all_victories.py` | Full Victories/VictoryTypes/AgeProgressions for **every** age |
 
 ### Enable live DB access (one-time)
 ```ini

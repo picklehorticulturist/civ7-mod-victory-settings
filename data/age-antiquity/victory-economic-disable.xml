@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
-  <Strategies>
+  <!--
+    Antiquity-age Economic victory block. Safety/future-proof mirror of the
+    Exploration/Modern blocks; harmless no-op if VICTORY_ECONOMIC_MODERN is absent
+    from the Antiquity-age gameplay DB. Loads under
+    `antiquity-age-current-victory-economic-disabled`
+    (AgeInUse=AGE_ANTIQUITY + EconomicVictoryEnabled=0).
+  -->
+  <Victories>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_ANTIQUITY_ECONOMIC"/>
-      <Set MinNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_ECONOMIC_MODERN"/>
+      <Set EnabledByDefault='0'/>
     </Update>
+    <Update>
+      <Where VictoryType="VICTORY_ECONOMIC_MODERN"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+  </Victories>
 
+  <VictoryTypes>
     <Update>
-      <Where LegacyPathType="LEGACY_PATH_ANTIQUITY_ECONOMIC"/>
-      <Set MaxNumConditionsNeeded='100'/>
+      <Where VictoryType="VICTORY_ECONOMIC_MODERN"/>
+      <Set PrereqRequirementSetId='REQSET_VICTORY_NEVER_MET'/>
     </Update>
-
     <Update>
-      <Where LegacyPathType='LEGACY_PATH_ANTIQUITY_ECONOMIC'/>
-      <Set MinConditionPercentage='100'/>
+      <Where VictoryType="VICTORY_ECONOMIC_MODERN"/>
+      <Set CountdownDuration='99999'/>
     </Update>
-  </Strategies>
+  </VictoryTypes>
 </Database>
