@@ -139,7 +139,7 @@ To enable:
 
 One load-confirmation line always prints regardless of `MOD_DEBUG`:
 ```
-[VictorySettings] v1.5.0 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
+[VictorySettings] v1.5.1 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
 ```
 
 ---
