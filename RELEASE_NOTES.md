@@ -1,5 +1,25 @@
 # Release Notes
 
+## v1.5.1 — Keep Domination (Last-Civ-Standing) Win
+
+### 🛠 Fix: conquering all rivals ends the game again
+
+v1.5.0 over-reached by also blocking `VICTORY_DOMINATION` inside the Military blocks. That is
+the engine's *last-team-standing* condition (`REQUIREMENT_TEAM_DOMINATION_VICTORY`), distinct
+from the points-based military countdown victory — blocking it meant eliminating every other
+civilization would **not** end the game.
+
+- Removed the `VICTORY_DOMINATION` updates from the Antiquity / Exploration / Modern Military
+  files. It is now left at the game default (enabled).
+- The points-based Military *countdown* victory (`VICTORY_MILITARY_MODERN`) is still blocked
+  when Military Victory is disabled — you still can't win on military score, but wiping out
+  all rivals ends the game normally.
+
+> If you want play to continue even after you're the last civ standing, that's a different
+> goal — open an issue and it can be added as its own toggle.
+
+---
+
 ## v1.5.0 — All-Age Victory Blocking
 
 ### ✨ Enhancement: disabled victories are now blocked in *every* age

@@ -129,7 +129,7 @@ Logic: `REQUIREMENT_ALWAYS_MET` + `Inverse=1` = always fails. `REQUIREMENTSET_TE
 | `VICTORY_ECONOMIC_MODERN` | `VICTORY_CLASS_ECONOMIC` | `5` | `ScoringType = …DOMINATION` |
 | `VICTORY_CULTURE_MODERN` | `VICTORY_CLASS_CULTURE` | `5` | `ScoringType = …DOMINATION` |
 | `VICTORY_SCORE` | `VICTORY_CLASS_SCORE` | **0** (instant) | Fires when the Modern Age ends |
-| `VICTORY_DOMINATION` | `VICTORY_CLASS_DOMINATION` | — (not in `VictoryTypes`) | Legacy-layer only (`Victories` row, `REQSET_DOMINATION_VICTORY`) |
+| `VICTORY_DOMINATION` | `VICTORY_CLASS_DOMINATION` | — (not in `VictoryTypes`) | Last-team-standing win (`REQ_DOMINATION_VICTORY` = `REQUIREMENT_TEAM_DOMINATION_VICTORY`). **Intentionally left enabled** — eliminating all rivals still ends the game. |
 
 > The default countdown is **5** turns ("victory imminent" → 5 turns → win). The mod raises it
 > to `99999` and points the prereq at `REQSET_VICTORY_NEVER_MET`.

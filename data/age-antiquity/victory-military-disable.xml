@@ -5,8 +5,11 @@
     Exploration/Modern blocks; harmless no-op if the rows are absent from the
     Antiquity-age gameplay DB. Loads under
     `antiquity-age-current-victory-military-disabled`
-    (AgeInUse=AGE_ANTIQUITY + MilitaryVictoryEnabled=0). Also blocks
-    VICTORY_DOMINATION (legacy-layer military/domination victory).
+    (AgeInUse=AGE_ANTIQUITY + MilitaryVictoryEnabled=0).
+
+    NOTE: Blocks only the points-based military countdown victory — NOT
+    VICTORY_DOMINATION (last-team-standing), so conquering all rivals still ends
+    the game.
   -->
   <Victories>
     <Update>
@@ -15,14 +18,6 @@
     </Update>
     <Update>
       <Where VictoryType="VICTORY_MILITARY_MODERN"/>
-      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
-    </Update>
-    <Update>
-      <Where VictoryType="VICTORY_DOMINATION"/>
-      <Set EnabledByDefault='0'/>
-    </Update>
-    <Update>
-      <Where VictoryType="VICTORY_DOMINATION"/>
       <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
     </Update>
   </Victories>

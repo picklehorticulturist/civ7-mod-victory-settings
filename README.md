@@ -1,4 +1,4 @@
-# Victory Settings — Mod v1.5.0
+# Victory Settings — Mod v1.5.1
 
 > **Civilization VII mod** · Tested on game version 1.4.0 ("Test of Time")
 
