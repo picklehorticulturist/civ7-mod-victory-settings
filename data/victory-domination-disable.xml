@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <!--
+    Blocks VICTORY_DOMINATION — the engine's "last team standing" win
+    (REQ_DOMINATION_VICTORY = REQUIREMENT_TEAM_DOMINATION_VICTORY).
+
+    Loads whenever DominationVictoryEnabled=0 (no AgeInUse gate, so it applies in
+    every age the gameplay DB is built for). With this on, eliminating all other
+    civilizations will NOT end the game — for a truly endless sandbox, combine with
+    the four victory toggles also disabled.
+
+    Reuses REQSET_VICTORY_NEVER_MET (created once by the always-active
+    modern-age-victory-requirements-block ActionGroup).
+  -->
+  <Victories>
+    <Update>
+      <Where VictoryType="VICTORY_DOMINATION"/>
+      <Set EnabledByDefault='0'/>
+    </Update>
+    <Update>
+      <Where VictoryType="VICTORY_DOMINATION"/>
+      <Set RequirementSetId='REQSET_VICTORY_NEVER_MET'/>
+    </Update>
+  </Victories>
+</Database>

@@ -1,4 +1,4 @@
-# Victory Settings — Mod v1.5.1
+# Victory Settings — Mod v1.6.0
 
 > **Civilization VII mod** · Tested on game version 1.4.0 ("Test of Time")
 
@@ -10,11 +10,12 @@ Give yourself full control over how and when your game ends. Disable any combina
 
 | Feature | Description |
 |---|---|
-| **Victory Toggles** | Enable or disable Military, Science, Economic, and Culture victories individually |
-| **All-age victory blocking** *(new in v1.5.0)* | Disabled victories are now blocked in **every** age — including the Exploration-age victory countdown the game added in patch 1.4.0, so a runaway player can't win before the Modern Age |
+| **Victory Toggles** | Enable or disable Military, Science, Economic, Culture, **and Domination** victories individually |
+| **Domination toggle** *(new in v1.6.0)* | Separately enable/disable the "last civilization standing" win — keep it on so conquest still ends the game, or off for a truly endless sandbox |
+| **All-age victory blocking** *(new in v1.5.0)* | Disabled victories are blocked in **every** age — including the Exploration-age victory countdown the game added in patch 1.4.0, so a runaway player can't win before the Modern Age |
+| **Per-age "Disable Age Ending"** *(new in v1.6.0)* | Freeze the Antiquity, Exploration, or Modern age bar so the game stays in that era forever |
 | **Turn Counter Freeze** | Stop ages from advancing based on turn limits |
 | **Elimination Freeze** | Stop ages from advancing when players are eliminated |
-| **Disable Age Ending** *(new in v1.4.1)* | Modern Age never ends — no game-over screen regardless of game speed or age length |
 | **Works on all speeds** | Online + Abbreviated, Standard, Epic, Marathon — all covered |
 
 ---
@@ -38,19 +39,24 @@ Give yourself full control over how and when your game ends. Disable any combina
 
 | Toggle | Default | Effect |
 |---|---|---|
-| Military Victory | ON (checked) | **Uncheck** to block military victory for all players |
+| Domination Victory | ON (checked) | **Uncheck** to block the last-civ-standing win (game won't end even after world conquest) |
+| Military Victory | ON (checked) | **Uncheck** to block military (points) victory for all players |
 | Science Victory | ON (checked) | **Uncheck** to block science victory |
 | Economic Victory | ON (checked) | **Uncheck** to block economic victory |
 | Culture Victory | ON (checked) | **Uncheck** to block culture victory |
+
+> **Domination vs Military:** *Military Victory* is the points-based legacy win; *Domination Victory* is the classic "eliminate everyone" win. Leave Domination **on** if you want conquering the map to still end the game. Uncheck all five for a game that never ends by victory.
 
 ### Age Progression
 | Toggle | Default | Effect |
 |---|---|---|
 | Turn Counter | ON | Disable to stop turns from filling the age progression bar |
 | Player Elimination | ON | Disable to stop eliminations from filling the age bar |
-| **Disable Age Ending** | **OFF** | **Enable to prevent the Modern Age from ever ending** |
+| **Disable Modern Age Ending** | **OFF (unchecked)** | **Check** to prevent the Modern Age from ever ending (also blocks the score victory) |
+| **Disable Antiquity Age Ending** *(new in v1.6.0)* | **OFF (unchecked)** | **Check** to stay in the Antiquity Age forever (never advances to Exploration) |
+| **Disable Exploration Age Ending** *(new in v1.6.0)* | **OFF (unchecked)** | **Check** to stay in the Exploration Age forever (never advances to Modern) |
 
-> **"Disable Age Ending"** is the key toggle for endless play. It sets the age bar's finish line to an unreachable value and blocks the score victory that fires at age end. Game speed and production pace are completely unchanged.
+> The **"Disable … Age Ending"** toggles are the key to endless play. Each sets that age bar's finish line to an unreachable value (and the Modern one also blocks the score victory). Game speed and production pace are completely unchanged — only the bar's finish line is removed. These are *check-to-enable* (the opposite of the Victory boxes above).
 
 ---
 
