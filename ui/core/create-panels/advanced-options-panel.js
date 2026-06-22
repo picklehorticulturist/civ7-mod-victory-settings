@@ -15,9 +15,9 @@ import { getLeaderData } from '/core/ui/shell/create-panels/leader-select-model.
 import LeaderSelectModelManager from '/core/ui/shell/leader-select/leader-select-model-manager.js';
 import { Audio } from '/core/ui/audio-base/audio-support.js';
 const STANDARD_PARAMETERS = ["Age", "Difficulty", "GameSpeeds", "Map", "MapSize"];
-const VICTORY_PARAMETERS = ["MilitaryVictoryEnabled", "ScienceVictoryEnabled", "EconomicVictoryEnabled", "CultureVictoryEnabled"];
+const VICTORY_PARAMETERS = ["DominationVictoryEnabled", "MilitaryVictoryEnabled", "ScienceVictoryEnabled", "EconomicVictoryEnabled", "CultureVictoryEnabled"];
 const ADVANCED_PARAMETERS = ["AgeLength", "DisasterIntensity", "CrisesEnabled", "GameRandomSeed", "MapRandomSeed", "StartPosition"];
-const PROGRESSION_PARAMETERS = ["AgeProgressionFromTurnCounterEnabled", "AgeProgressionFromPlayerEliminatedEnabled"];
+const PROGRESSION_PARAMETERS = ["AgeProgressionFromTurnCounterEnabled", "AgeProgressionFromPlayerEliminatedEnabled", "AgeEndingDisabled", "AntiquityAgeEndingDisabled", "ExplorationAgeEndingDisabled"];
 
 /**
  * AdvancedOptionsPanel displays advanced game options and player setup.

@@ -24,7 +24,12 @@ victory-settings.modinfo
 ├── [game scope, conditional — Age Progression]
 │   ├── age-progression-turn-counter-disable     — AgeProgressionTurns Points=0
 │   ├── age-progression-player-eliminated-disable
-│   └── age-modern-ending-disable                — MaxPoints=max_int + VICTORY_SCORE blocked
+│   ├── age-modern-ending-disable                — Modern MaxPoints=max_int + VICTORY_SCORE blocked
+│   ├── antiquity-age-ending-disable             — Antiquity MaxPoints=max_int (AgeInUse=AGE_ANTIQUITY)
+│   └── exploration-age-ending-disable           — Exploration MaxPoints=max_int (AgeInUse=AGE_EXPLORATION)
+│
+├── [game scope, conditional — Domination]
+│   └── domination-victory-disable               — VICTORY_DOMINATION blocked (all ages)
 │
 └── [game scope, conditional — Victories per age × 4 victory types]
     ├── antiquity-age-current-victory-*-disable  (×4)
@@ -38,13 +43,21 @@ victory-settings.modinfo
 
 | ParameterID | Default | Effect when OFF (0) |
 |---|---|---|
-| `MilitaryVictoryEnabled` | 1 | Military victory blocked in all ages |
+| `DominationVictoryEnabled` | 1 | Domination (last-team-standing) victory blocked in all ages |
+| `MilitaryVictoryEnabled` | 1 | Military (points) victory blocked in all ages |
 | `ScienceVictoryEnabled` | 1 | Science victory blocked |
 | `EconomicVictoryEnabled` | 1 | Economic victory blocked |
 | `CultureVictoryEnabled` | 1 | Culture victory blocked |
 | `AgeProgressionFromTurnCounterEnabled` | 1 | Turns add 0 points to age bar |
 | `AgeProgressionFromPlayerEliminatedEnabled` | 1 | Eliminations add 0 points |
 | `AgeEndingDisabled` | **0** | **When ON (1): Modern Age never ends** |
+| `AntiquityAgeEndingDisabled` | **0** | **When ON (1): Antiquity Age never ends** |
+| `ExplorationAgeEndingDisabled` | **0** | **When ON (1): Exploration Age never ends** |
+
+> **UI gotcha:** `ui/core/create-panels/advanced-options-panel.js` overrides the setup screen and
+> only renders parameters whose IDs appear in its `VICTORY_PARAMETERS` / `PROGRESSION_PARAMETERS`
+> arrays. Any new toggle **must** be added to the appropriate array or it will be silently
+> hidden from the menu.
 
 ---
 
@@ -139,7 +152,7 @@ To enable:
 
 One load-confirmation line always prints regardless of `MOD_DEBUG`:
 ```
-[VictorySettings] v1.5.1 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
+[VictorySettings] v1.6.0 loaded. MOD_DEBUG=false. Run python tools/check_now.py to inspect live DB.
 ```
 
 ---

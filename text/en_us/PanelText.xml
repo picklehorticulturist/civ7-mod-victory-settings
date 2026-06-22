@@ -4,6 +4,12 @@
 		<Replace Tag="LOC_GROUPID_VICTORYOPTIONS" Language="en_US">
 			<Text>Victory Options</Text>
 		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_VICTORY_CONDITIONS_DOMINATION" Language="en_US">
+			<Text>Domination Victory</Text>
+		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_VICTORY_CONDITIONS_DOMINATION_DESC" Language="en_US">
+			<Text>Enable or disable the domination victory, won by eliminating all other civilizations. Disable for an endless game even after conquering the world.</Text>
+		</Replace>
 		<Replace Tag="LOC_ADVANCED_OPTIONS_VICTORY_CONDITIONS_MILITARY" Language="en_US">
 			<Text>Military Victory</Text>
 		</Replace>
@@ -44,10 +50,22 @@
 			<Text>Should progression be increased by the elimination of players?</Text>
 		</Replace>
 		<Replace Tag="LOC_ADVANCED_OPTIONS_AGE_ENDING_DISABLED" Language="en_US">
-			<Text>Disable Age Ending</Text>
+			<Text>Disable Modern Age Ending</Text>
 		</Replace>
 		<Replace Tag="LOC_ADVANCED_OPTIONS_AGE_ENDING_DISABLED_DESC" Language="en_US">
 			<Text>When enabled, the Modern Age will never end. Game speed and production pace are unchanged — only the age bar finish line is removed. Disables the score victory.</Text>
+		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_ANTIQUITY_AGE_ENDING_DISABLED" Language="en_US">
+			<Text>Disable Antiquity Age Ending</Text>
+		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_ANTIQUITY_AGE_ENDING_DISABLED_DESC" Language="en_US">
+			<Text>When enabled, the Antiquity Age never ends — the game stays in Antiquity and never advances to Exploration. Game speed and production pace are unchanged; only the age bar finish line is removed.</Text>
+		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_EXPLORATION_AGE_ENDING_DISABLED" Language="en_US">
+			<Text>Disable Exploration Age Ending</Text>
+		</Replace>
+		<Replace Tag="LOC_ADVANCED_OPTIONS_EXPLORATION_AGE_ENDING_DISABLED_DESC" Language="en_US">
+			<Text>When enabled, the Exploration Age never ends — the game stays in Exploration and never advances to Modern. Game speed and production pace are unchanged; only the age bar finish line is removed.</Text>
 		</Replace>
 
 		<!-- King of Ashes Defeat -->

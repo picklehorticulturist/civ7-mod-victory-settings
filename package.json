@@ -2,7 +2,7 @@
   "name": "victory-settings",
   "description": "Civilization 7 mod that adds new settings for the Victory Conditions & AI Stragegy",
   "author": "Michael Wagner",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "license": "MIT License",
   "private": true,
   "type": "module",

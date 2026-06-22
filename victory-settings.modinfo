@@ -146,6 +146,33 @@
 					<Value>1</Value>
 			</ConfigurationValueMatches>
 		</Criteria>
+
+		<!-- Disable Antiquity / Exploration Age Ending (freeze that age's bar) -->
+		<Criteria id="antiquity-age-ending-disabled">
+			<AgeInUse>AGE_ANTIQUITY</AgeInUse>
+			<ConfigurationValueMatches>
+					<Group>Game</Group>
+					<ConfigurationId>AntiquityAgeEndingDisabled</ConfigurationId>
+					<Value>1</Value>
+			</ConfigurationValueMatches>
+		</Criteria>
+		<Criteria id="exploration-age-ending-disabled">
+			<AgeInUse>AGE_EXPLORATION</AgeInUse>
+			<ConfigurationValueMatches>
+					<Group>Game</Group>
+					<ConfigurationId>ExplorationAgeEndingDisabled</ConfigurationId>
+					<Value>1</Value>
+			</ConfigurationValueMatches>
+		</Criteria>
+
+		<!-- Disable Domination (last-team-standing) victory -->
+		<Criteria id="domination-victory-disabled">
+			<ConfigurationValueMatches>
+					<Group>Game</Group>
+					<ConfigurationId>DominationVictoryEnabled</ConfigurationId>
+					<Value>0</Value>
+			</ConfigurationValueMatches>
+		</Criteria>
 	</ActionCriteria>
 	<ActionGroups>
 		<!-- Shell -->
@@ -205,6 +232,31 @@
 			<Actions>
 				<UpdateDatabase>
 					<Item>data/age-modern-ending-disabled.xml</Item>
+				</UpdateDatabase>
+			</Actions>
+		</ActionGroup>
+
+		<!-- Prevent Antiquity / Exploration Age from ever ending (freeze that age's bar) -->
+		<ActionGroup id="antiquity-age-ending-disable" scope="game" criteria="antiquity-age-ending-disabled">
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/age-antiquity-ending-disabled.xml</Item>
+				</UpdateDatabase>
+			</Actions>
+		</ActionGroup>
+		<ActionGroup id="exploration-age-ending-disable" scope="game" criteria="exploration-age-ending-disabled">
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/age-exploration-ending-disabled.xml</Item>
+				</UpdateDatabase>
+			</Actions>
+		</ActionGroup>
+
+		<!-- Disable Domination (last-team-standing) victory in every age -->
+		<ActionGroup id="domination-victory-disable" scope="game" criteria="domination-victory-disabled">
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/victory-domination-disable.xml</Item>
 				</UpdateDatabase>
 			</Actions>
 		</ActionGroup>

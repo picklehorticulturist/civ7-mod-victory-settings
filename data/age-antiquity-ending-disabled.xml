@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <!--
+    Freezes the Antiquity age bar so the game never advances past the Antiquity Age.
+    Game speed and production pace are unchanged — only the age bar's finish line is
+    moved to an impossible value (2147483647 = SQLite max int).
+
+    Loaded only while AgeInUse=AGE_ANTIQUITY (criteria `antiquity-age-ending-disabled`),
+    because the gameplay DB is rebuilt per age and only the Antiquity-age DB contains
+    the AGE_ANTIQUITY AgeProgressions row.
+
+    NOTE: one <Set> per <Update> — the Civ7 XML serializer rejects multiple <Set>
+    elements in a single <Update> block.
+  -->
+  <AgeProgressions>
+    <Update>
+      <Where AgeType="AGE_ANTIQUITY"/>
+      <Set MaxPoints_Abbreviated="2147483647"/>
+    </Update>
+    <Update>
+      <Where AgeType="AGE_ANTIQUITY"/>
+      <Set MaxPoints_Standard="2147483647"/>
+    </Update>
+    <Update>
+      <Where AgeType="AGE_ANTIQUITY"/>
+      <Set MaxPoints_Long="2147483647"/>
+    </Update>
+  </AgeProgressions>
+</Database>

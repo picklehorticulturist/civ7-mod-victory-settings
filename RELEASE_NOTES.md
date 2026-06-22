@@ -1,5 +1,39 @@
 # Release Notes
 
+## v1.6.0 — Endgame Control: Domination Toggle + Per-Age Freeze
+
+### ✨ New: Domination Victory toggle
+
+A fifth victory toggle, **Domination Victory** (default ON), controls the engine's
+last-team-standing win (`VICTORY_DOMINATION`). Leave it on so conquering the map still ends
+the game; turn it **off** (uncheck) for a truly endless sandbox even after you've eliminated
+everyone. Independent of the points-based *Military Victory* toggle.
+
+### ✨ New: Per-age "Disable Age Ending"
+
+The age-bar freeze is no longer Modern-only. Two new toggles join it:
+
+- **Disable Antiquity Age Ending** — stay in the Antiquity Age forever.
+- **Disable Exploration Age Ending** — stay in the Exploration Age forever.
+
+Each raises that age's `MaxPoints_*` to an unreachable value (gated on `AgeInUse` so it edits
+the correct per-age gameplay DB). Production pace is unchanged — only the bar's finish line.
+
+### 🐛 Fix: "Disable Age Ending" now actually appears in the menu
+
+The setup-screen override (`advanced-options-panel.js`) only renders parameters listed in its
+`VICTORY_PARAMETERS` / `PROGRESSION_PARAMETERS` arrays, and `AgeEndingDisabled` had never been
+added — so the existing "Disable Age Ending" toggle wasn't showing. All new toggles plus
+`AgeEndingDisabled` are now wired into those arrays. ("Disable Age Ending" is also relabeled
+**"Disable Modern Age Ending"** for clarity alongside the new per-age toggles.)
+
+### Notes
+- New game required for setup changes (toggles are `ChangeableAfterGameStart=0`).
+- Verify quickly by opening **Advanced Setup** — no need to start a game to confirm the new
+  checkboxes appear.
+
+---
+
 ## v1.5.1 — Keep Domination (Last-Civ-Standing) Win
 
 ### 🛠 Fix: conquering all rivals ends the game again
